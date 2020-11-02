@@ -22,6 +22,7 @@
     "nodemon": "^2.0.6"
   },
   "dependencies": {
+    "base64-img": "^1.0.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -31,9 +32,11 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "image-thumbnail": "^1.0.11",
+    "joi": "^17.3.0",
     "jsonpatch": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^8.2.0",
-    "mongoose": "^5.10.11"
+    "mongoose": "^5.10.11",
+    "unique-filename": "^1.1.1"
   }
 }

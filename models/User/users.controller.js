@@ -7,7 +7,7 @@ const Role = require("../../role");
 const userService = require("./user.service");
 
 // routes
-router.post("/authenticate", authenticateSchema, authenticate);
+router.post("/login", authenticateSchema, authenticate);
 router.post("/refresh-token", refreshToken);
 router.post("/revoke-token", authorize(), revokeTokenSchema, revokeToken);
 router.post("/register", registerSchema, register);
@@ -21,7 +21,7 @@ router.post(
 router.post("/reset-password", resetPasswordSchema, resetPassword);
 router.get("/", authorize(), getAll);
 router.get("/loggedin", authorize(), getLoggedInUser);
-router.patch("/jsonpatch", authorize(), patchJsonTest);
+router.post("/patch-json", authorize(), patchJson);
 router.post('/generate-image-thumbnail', authorize(), generateImageThumbnail);
 router.get("/:id", authorize(), getById);
 router.post("/", authorize(), createSchema, create);
@@ -262,7 +262,7 @@ function setTokenCookie(res, token) {
   res.cookie("refreshToken", token, cookieOptions);
 }
 
-function patchJsonTest(req, res, next) {
+function patchJson(req, res, next) {
   userService.patchJson(req.body.doc, req.body.patch)
     .then(patchedJson => res.json(patchedJson))
     .catch(next)
@@ -270,6 +270,6 @@ function patchJsonTest(req, res, next) {
 
 function generateImageThumbnail(req, res, next) {
   userService.generateImageThumbnail(req.body.url)
-    .then(resp => res.json(resp))
+    .then(() => res.json({"msg" : "File downloaded to thumbnails folder inside project root folder!"}))
     .catch(next)
 }

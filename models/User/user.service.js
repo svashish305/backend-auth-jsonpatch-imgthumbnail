@@ -1,9 +1,12 @@
-﻿const config = require("../../config.json");
+﻿const path = require("path");
+const config = require("../../config.json");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const jsonpatch = require("jsonpatch");
 const imageThumbnail = require('image-thumbnail');
+const base64Img = require('base64-img');
+const uniqueFilename = require('unique-filename');
 const db = require("../../db");
 const Role = require("../../role");
 
@@ -192,8 +195,11 @@ async function generateImageThumbnail(url) {
   try {
     const options = { width: 50, height: 50, responseType: 'base64' }
     const thumbnail = await imageThumbnail({uri: url}, options);
-    console.log(thumbnail);
-    // return thumbnail;
+    const dir = path.resolve(appRoot, "thumbnails");
+    const randomFileName = uniqueFilename(dir, 'img');
+    await base64Img.img(`data:image/png;base64,${thumbnail}`, '', randomFileName, function(err, filepath) {
+      if(err) console.log(err);
+    });
   } catch (err) {
       console.error(err);
   }
