@@ -1,0 +1,4 @@
+{
+  "connectionString": "mongodb://localhost/backend-jsonpatch-demo",
+  "secret": "HERE IS THE SECRET FOR JSONPATCH DEMO APP"
+}
