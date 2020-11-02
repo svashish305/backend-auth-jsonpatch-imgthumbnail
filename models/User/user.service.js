@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const jsonpatch = require("jsonpatch");
+const validUrl = require('valid-url');
 const imageThumbnail = require('image-thumbnail');
 const base64Img = require('base64-img');
 const uniqueFilename = require('unique-filename');
@@ -187,19 +188,23 @@ async function getLoggedInUser(id) {
 }
 
 async function patchJson(doc, patch) {
-  const patchedJson = jsonpatch.apply_patch(doc, patch);
+  const patchedJson = await jsonpatch.apply_patch(doc, patch);
   return patchedJson;
 }
 
 async function generateImageThumbnail(url) {
   try {
-    const options = { width: 50, height: 50, responseType: 'base64' }
-    const thumbnail = await imageThumbnail({uri: url}, options);
-    const dir = path.resolve(appRoot, "thumbnails");
-    const randomFileName = uniqueFilename(dir, 'img');
-    await base64Img.img(`data:image/png;base64,${thumbnail}`, '', randomFileName, function(err, filepath) {
-      if(err) console.log(err);
-    });
+    if(validUrl.isUri(url)) {
+      const options = { width: 50, height: 50, responseType: 'base64' }
+      const thumbnail = await imageThumbnail({uri: url}, options);
+      const dir = path.resolve(appRoot, "thumbnails");
+      const randomFileName = uniqueFilename(dir, 'img');
+      base64Img.img(`data:image/png;base64,${thumbnail}`, '', randomFileName, function(err, filepath) {
+        if(err) console.log(err);
+      });
+    } else {
+      console.error('Not a valid Url!');
+    }
   } catch (err) {
       console.error(err);
   }
