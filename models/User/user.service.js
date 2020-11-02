@@ -38,7 +38,7 @@ async function authenticate({ email, password, ipAddress }) {
 
   await refreshToken.save();
 
-  return {
+  return  {
     ...basicDetails(user),
     jwtToken,
     refreshToken: refreshToken.token,
@@ -76,8 +76,8 @@ async function revokeToken({ token, ipAddress }) {
 async function register(params, origin) {
   const user = new db.User(params);
 
-  const isFirstUser = (await db.User.countDocuments({})) === 0;
-  user.role = isFirstUser ? Role.Admin : Role.User;
+  // const isFirstUser = (await db.User.countDocuments({})) === 0;
+  // user.role = isFirstUser ? Role.Admin : Role.User;
   user.verificationToken = randomTokenString();
 
   user.passwordHash = hash(params.password);

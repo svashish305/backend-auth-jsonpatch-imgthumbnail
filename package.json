@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "npm test jsonpatch",
+    "test": "mocha",
     "start": "node server.js",
     "server": "nodemon server.js"
   },
@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/svashish305/backend-auth-jsonpatch-imgthumbnail#readme",
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.2.0",
     "nodemon": "^2.0.6"
   },
   "dependencies": {
@@ -35,7 +38,6 @@
     "joi": "^17.3.0",
     "jsonpatch": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^8.2.0",
     "mongoose": "^5.10.11",
     "unique-filename": "^1.1.1",
     "valid-url": "^1.0.9"
