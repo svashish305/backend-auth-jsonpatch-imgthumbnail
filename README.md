@@ -1,6 +1,6 @@
 ### Description
 
-A backend app written in NodeJS to demo auth using JWT, and protected endpoints to implement jsonpatch request and image thumbnail generation request
+A backend app written in NodeJS to demo auth using JWT, and protected endpoints to implement jsonpatch request and image thumbnail generation request, alongwith test suite written in mocha and chai
 
 ### APIs being used:
 
